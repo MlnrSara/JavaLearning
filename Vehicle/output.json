@@ -1,0 +1,28 @@
+{
+"brand": "Toyota"
+"produced": 2020
+"color": "blue"
+"seats": 5
+}
+
+{
+"brand": "Yamaha"
+"produced": 1997
+"color": "gray"
+"seats": 1
+}
+
+{
+"brand": ""
+"produced": 0
+"color": ""
+"seats": 0
+}
+
+{
+"brand": "Pegasus"
+"produced": 2000
+"color": "red"
+"seats": 1
+}
+
