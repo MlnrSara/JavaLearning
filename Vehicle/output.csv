@@ -1,5 +1,5 @@
 Brand,Production year,Color,Number of seats
-Toyota,2020,blue,5
-Yamaha,1997,gray,1
-,0,,0
-Pegasus,2000,red,1
+Toyota,2020,blue,5,1000.0,true,CJ05GHK,NULL,NULL,NULL,NULL,NULL
+Yamaha,1997,gray,1,NULL,NULL,B238FGC,80.0,NULL,NULL,NULL,NULL
+,0,,0,NULL,NULL,NULL,NULL,,,[Ljava.lang.String;@4eec7777,NULL
+Pegasus,2000,red,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,5
