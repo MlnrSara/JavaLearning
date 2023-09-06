@@ -1,5 +1,7 @@
 package Operations;
 
+import java.util.ArrayList;
+
 public class Calculator {
     public static double evaluate(Polynome first, double x){
         double result = 0.0;
@@ -129,13 +131,14 @@ public class Calculator {
         return result;
     }
 
-    public static Polynome polynomialDivision(Polynome first, Polynome second, double x){
+    public static ArrayList<Polynome> polynomialDivision(Polynome first, Polynome second, double x){
+        ArrayList<Polynome> result = new ArrayList<Polynome>();
         Polynome quotient = new Polynome();
         for(int i=0; i<first.indices.size()-second.indices.size()+1; i++)
             quotient.indices.add(0.0);
         if(first.indices.size()<second.indices.size()){
             System.out.println("You cannot make this division.");
-            return quotient;
+            return result;
         }
         Polynome firstReversed = new Polynome();
         Polynome secondReversed = new Polynome();
@@ -153,7 +156,14 @@ public class Calculator {
             firstReversed = Calculator.subtract(firstReversed,temp, x);
             firstReversed.indices.remove(0);
         }
-        return quotient;
+        result.add(quotient);
+        Polynome auxilliary = new Polynome();
+        for (int i=firstReversed.indices.size()-1; i>=0; i--){
+            auxilliary.indices.add(firstReversed.indices.get(i));
+        }
+        result.add(auxilliary);
+        return result;
+        //return quotient;
     }
 
 
