@@ -54,30 +54,7 @@ public class Sale {
         return obs;
     }
 
-    public Sale(){
-        id = 0;
-        date = LocalDate.now();
-        time = LocalTime.now();
-        price = 0;
-        itemName = "";
-        quantity = 0;
-        destination = "";
-        location = "";
-        status = "";
-        obs = "";
-    }
-    public Sale(int id, LocalTime time, LocalDate date, double price, String item, int quantity, String destination, String location, String status, String obs){
-        this.id = id;
-        this.date = date;
-        this.time = time;
-        this.price = price;
-        this.itemName = item;
-        this.quantity = quantity;
-        this.destination = destination;
-        this.location = location;
-        this.status = status;
-        this.obs = obs;
-    }
+
     public Sale(String[] info){
         this.id = Integer.parseInt(info[0]);
         this.date = LocalDate.parse(info[1]);
@@ -91,12 +68,16 @@ public class Sale {
         this.obs = info[9];
     }
 
-    @Override
+
     public String toString() {
         String message = "";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss");
         String rightTime = this.time.format(formatter);
         message += this.id + "  Date: " + date + " Time: "+ rightTime + "  Item: " + itemName + "  Price: " + price;
         return message;
+    }
+
+    public boolean equals(Sale sale){
+        return this.getItemName().equals(sale.getItemName());
     }
 }

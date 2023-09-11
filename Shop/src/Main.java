@@ -60,5 +60,6 @@ public class Main {
         System.out.println("Total income: " + Operation.totalIncome(sales));
         System.out.println("Most popular: " + Operation.mostPopular(sales));
         System.out.println("The IDs are different: " + Operation.checkUniqueID(sales));
+        System.out.println("They are equal: " + sales.get(3).equals(sales.get(2)));
     }
 }

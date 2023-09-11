@@ -19,7 +19,15 @@ public class Operation {
     }
 
     public static double totalIncome(ArrayList<Sale> sales){
-        return sales.stream().map(s->s.getPrice()*s.getQuantity()).reduce(0.0,Double::sum);
+        List<Double> mappedSales = sales.stream().map(s->s.getPrice()*s.getQuantity()).collect(Collectors.toList());
+        List<Double> temp = mappedSales.stream().filter(s->s<0).collect(Collectors.toList());
+        try{
+            if(!temp.isEmpty())
+                throw new MyException("Why is there a negative price?!");
+        } catch(MyException e) {
+            System.out.println(e.getMessage());
+        }
+        return mappedSales.stream().reduce(0.0,Double::sum);
     }
 
     public static String mostPopular(ArrayList<Sale> sales){
@@ -50,4 +58,5 @@ public class Operation {
     public static boolean obsLength(Sale sale){
         return sale.getObs().length() <= 255;
     }
+
 }
