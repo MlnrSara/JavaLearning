@@ -1,0 +1,160 @@
+create table store_locations(
+	store_id INTEGER not null auto_increment,
+	adress VARCHAR(255),
+	opening_hour TIME,
+	closing_hour TIME,
+	primary key (store_id)
+);
+
+create table job_positions(
+	job_id INTEGER not null auto_increment,
+	name VARCHAR(255) not null,
+	salary FLOAT,
+	primary key (job_id)
+);
+
+create table employees(
+	employee_id INTEGER not null auto_increment,
+	job_id INTEGER,
+	first_name VARCHAR(255),
+	last_name VARCHAR(255),
+	age INTEGER,
+	store_id INTEGER,
+	primary key (employee_id),
+	constraint foreign key (job_id)
+	references job_positions (job_id)
+	on delete cascade on update cascade
+);
+
+create table sales(
+	sale_id INTEGER not null auto_increment,
+	employee_id INTEGER,
+	purchase_date datetime,
+	store_id INTEGER,
+	primary key (sale_id),
+	constraint foreign key (employee_id)
+	references employees (employee_id)
+	on delete cascade on update cascade,
+	constraint foreign key (store_id)
+	references store_locations (store_id)
+	on delete cascade on update cascade
+);
+
+create table product_types(
+	category VARCHAR(255) not null,
+	quantity INTEGER, 
+	primary key (category)
+);
+
+create table products(
+	product_id INTEGER not null auto_increment,
+	category VARCHAR(255),
+	store_id INTEGER,
+	sale_id INTEGER,
+	primary key (product_id),
+	constraint foreign key (store_id)
+	references store_locations (store_id)
+	on delete cascade on update cascade,
+	constraint foreign key (category)
+	references product_types (category)
+	on delete cascade on update cascade,
+	constraint foreign key (sale_id)
+	references sales (sale_id)
+	on delete cascade on update cascade
+);
+
+
+
+insert into store_locations (adress, opening_hour, closing_hour) values ('str. Fericirii', '10:00:00', '22:00:00');
+insert into store_locations (adress, opening_hour, closing_hour) values ('bld. Eroilor', '08:00:00', '22:00:00');
+insert into store_locations (adress, opening_hour, closing_hour) values ('bld. 21 Decembrie', '08:00:00', '21:00:00');
+insert into store_locations (adress, opening_hour, closing_hour) values ('str. Observator', '09:00:00', '20:00:00');
+insert into store_locations (adress, opening_hour, closing_hour) values ('str. Baritiu', '08:00:00', '22:00:00');
+
+insert into job_positions (name, salary) values ('Cashier', 2000);
+insert into job_positions (name, salary) values ('Janitor', 1500);
+insert into job_positions (name, salary) values ('Assistant store manager', 2500);
+insert into job_positions (name, salary) values ('Stock clerk', 2100);
+insert into job_positions (name, salary) values ('Store manager', 2000);
+
+insert into employees (job_id, first_name, last_name, age , store_id) values (1, 'Monica', 'Pop', 56,3);
+insert into employees (job_id, first_name, last_name, age, store_id) values (2, 'Viorel', 'Popa', 60,3);
+insert into employees (job_id, first_name, last_name, age, store_id) values (1, 'Ion', 'Ionescu', 40,3);
+insert into employees (job_id, first_name, last_name, age, store_id) values (5, 'Vasile', 'Voiculescu', 30,3);
+insert into employees (job_id, first_name, last_name, age, store_id) values (1, 'Simona', 'Popescu', 25,4);
+insert into employees (job_id, first_name, last_name, age, store_id) values (5, 'Ana', 'Iancu', 31,4);
+insert into employees (job_id, first_name, last_name, age, store_id) values (1, 'Maria', 'Manescu', 43,5);
+insert into employees (job_id, first_name, last_name, age, store_id) values (3, 'Ioana', 'Parvulescu', 38,5);
+insert into employees (job_id, first_name, last_name, age, store_id) values (5, 'Ovidiu', 'Oiescu', 41,1);
+insert into employees (job_id, first_name, last_name, age, store_id) values (4, 'Marian', 'Haimairepede', 36,2);
+
+alter table product_types  
+add price double;
+
+insert into sales (employee_id, purchase_date, store_id) values (3, '2023-09-12 12:00:00', 3);
+insert into sales (employee_id, purchase_date, store_id) values (7, '2023-09-11 09:30:00', 5);
+insert into sales (employee_id, purchase_date, store_id) values (5, '2023-09-05 10:20:30', 4);
+
+insert into product_types (category, quantity, price) values ('Laptop HP', 20, 2000);
+insert into product_types (category, quantity, price) values ('Monitor Lenovo', 10, 1535);
+insert into product_types (category, quantity, price) values ('Tastatura', 5, 60);
+insert into product_types (category, quantity, price) values ('Mouse', 5, 35);
+insert into product_types (category, quantity, price) values ('Casti wireless', 7, 100);
+
+insert into products (category, store_id, sale_id) values ('Laptop HP', 3, null);
+insert into products (category, store_id, sale_id) values ('Monitor Lenovo', 3, 1);
+insert into products (category, store_id, sale_id) values ('Tastatura', 5, null);
+insert into products (category, store_id, sale_id) values ('Monitor Lenovo', 3, 1);
+insert into products (category, store_id, sale_id) values ('Mouse',5,2);
+
+/*the products which have been purchased*/
+select products.product_id as ID, products.category as Item, store_locations.adress as Adress, sales.purchase_date as Purchased
+from ((products inner join store_locations on products.store_id = store_locations.store_id) inner join sales on products.sale_id  = sales.sale_id ); 
+
+/*the sales an what products they contain*/
+select products.product_id as ID, products.category as Item, store_locations.adress as Adress, sales.purchase_date as Purchased
+from ((products inner join store_locations on products.store_id = store_locations.store_id) right join sales on products.sale_id  = sales.sale_id ) 
+order by sales.purchase_date; 
+
+/*all the products and when they were purchased (if they were)*/
+select products.product_id as ID, products.category as Item, store_locations.adress as Adress, sales.purchase_date as Purchased
+from ((products inner join store_locations on products.store_id = store_locations.store_id) left join sales on products.sale_id  = sales.sale_id ); 
+
+/*retrieves the first 3 employees that have the last name ending in -escu*/
+select first_name, last_name
+from employees 
+where last_name like '%escu'
+order by first_name, last_name
+limit 3;
+
+/*prints how many employees are on each position, but not janitors, in shop 3 */
+select job_positions.name as Job, count(employees.employee_id) as NoEmployees
+from employees inner join job_positions on employees.job_id = job_positions.job_id 
+where employees.job_id != 2 and employees.store_id = 3
+group by employees.job_id
+order by employees.job_id;
+
+/*selects all the employees that are above the age of 40 and counts them by position*/
+select job_positions.name as Job, count(employees.employee_id) as NoEmployees
+from employees inner join job_positions on employees.job_id = job_positions.job_id 
+where employees.age >= 40
+group by employees.job_id
+order by employees.job_id;
+
+update product_types 
+set price = 2500
+where category = 'Laptop HP';
+
+/*calculates the total of a sale*/
+select sales.sale_id as OrderNumber, sum(product_types.price) as Total
+from ((sales left join products on sales.sale_id = products.sale_id) left join product_types on products.category = product_types.category)  
+group by sales.sale_id;
+
+/*prints all the employees if there is a store that opens at that hour*/
+select employees.first_name as FirstName, employees.last_name as LastName 
+from employees inner join store_locations on employees.store_id = store_locations.store_id 
+where exists 
+(select opening_hour,closing_hour 
+from store_locations 
+where opening_hour between '07:00:00' and '07:30:00')
+order by employees.first_name DESC; 
