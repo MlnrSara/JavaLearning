@@ -1,0 +1,11 @@
+id;data;timp;pret;produs;cantitate;destinatie;locatie;status;obs
+1;2023-09-07;09:00:00;100.00;Aragaz;1;Cluj-Napoca;Cluj-Napoca;livrat;pe albastru
+3;2023-03-23;21:23:35;5.00;Servetele de buzunar;3;Bucuresti;Oradea;livrat;sa nu le sifonati
+4;2022-06-15;10:20:46;1000;Laptop;1;Slobozia;Oradea;livrat;nu livrati in zilele de luni
+4;2022-06-15;10:20:46;1000;Laptop;1;Slobozia;Oradea;livrat;nu livrati in zilele de luni
+4;2022-06-15;10:20:46;1000;Laptop;1;Slobozia;Oradea;livrat;nu livrati in zilele de luni
+7;2023-03-23;12:23:35;5.00;Servetele de buzunar;2;Bucuresti;Oradea;livrat;sa nu le sifonati
+7;2023-03-23;12:23:35;5.00;Servetele de buzunar;2;Bucuresti;Oradea;livrat;sa nu le sifonati
+7;2023-03-23;12:23:35;5.00;Servetele de buzunar;2;Bucuresti;Oradea;livrat;sa nu le sifonati
+7;2023-03-23;12:23:35;-5.00;Servetele de buzunar;2;Bucuresti;Oradea;livrat;sa nu le sifonati
+7;2023-03-23;12:23:35;5.00;Servetele de buzunar;2;Bucuresti;Oradea;livrat;sa nu le sifonati
