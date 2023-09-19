@@ -5,45 +5,45 @@ import java.util.ArrayList;
 public class Calculator {
     public static double evaluate(Polynome first, double x){
         double result = 0.0;
-        for(int i=0; i<first.indices.size(); i++){
-            result += first.indices.get(i) * Math.pow(x,i);
+        for(int i=0; i<first.getCoefficients().size(); i++){
+            result += first.getCoefficients().get(i) * Math.pow(x,i);
         }
         return result;
     }
     public static Polynome add(Polynome first, Polynome second, double x){
-        int minLength = Math.min(first.indices.size(), second.indices.size());
-        int maxLength = Math.max(first.indices.size(), second.indices.size());
+        int minLength = Math.min(first.getCoefficients().size(), second.getCoefficients().size());
+        int maxLength = Math.max(first.getCoefficients().size(), second.getCoefficients().size());
         Polynome result = new Polynome();
         int i;
         for( i=0; i<minLength; i++){
-            result.indices.add(first.indices.get(i) + second.indices.get(i));
+            result.getCoefficients().add(first.getCoefficients().get(i) + second.getCoefficients().get(i));
         }
         int j=i;
-        while(j<first.indices.size()){
-            result.indices.add(first.indices.get(j));
+        while(j<first.getCoefficients().size()){
+            result.getCoefficients().add(first.getCoefficients().get(j));
             j++;
         }
-        while (i<second.indices.size()){
-            result.indices.add(second.indices.get(j));
+        while (i<second.getCoefficients().size()){
+            result.getCoefficients().add(second.getCoefficients().get(j));
             i++;
         }
         String message = "";
         for( i=maxLength-1; i>=0; i--){
             message += "( ";
             boolean firstExists=false;
-            if(i<=first.indices.size()-1) {
-                message += first.indices.get(i) + " ";
+            if(i<=first.getCoefficients().size()-1) {
+                message += first.getCoefficients().get(i) + " ";
                 firstExists = true;
             }
-            if(i<=second.indices.size()-1){
+            if(i<=second.getCoefficients().size()-1){
                 if(firstExists){
-                    if(second.indices.get(i)>0)
+                    if(second.getCoefficients().get(i)>0)
                         message += "+ ";
                     else
                         message += " ";
-                    message += second.indices.get(i);
+                    message += second.getCoefficients().get(i);
                 } else
-                    message += second.indices.get(i);
+                    message += second.getCoefficients().get(i);
             }
             message += " )* " + x + "^" + i;
             if(i>0)
@@ -55,42 +55,42 @@ public class Calculator {
     }
 
     public static Polynome subtract(Polynome first, Polynome second, double x){
-        int minLength = Math.min(first.indices.size(), second.indices.size());
-        int maxLength = Math.max(first.indices.size(), second.indices.size());
+        int minLength = Math.min(first.getCoefficients().size(), second.getCoefficients().size());
+        int maxLength = Math.max(first.getCoefficients().size(), second.getCoefficients().size());
         Polynome result = new Polynome();
         int i;
         for( i=0; i<minLength; i++){
-            result.indices.add(first.indices.get(i) - second.indices.get(i));
+            result.getCoefficients().add(first.getCoefficients().get(i) - second.getCoefficients().get(i));
         }
         int j=i;
         int sign=1;
-        if(first.indices.size()==i)
+        if(first.getCoefficients().size()==i)
             sign = -1;
-        while(j<first.indices.size()){
-            result.indices.add(first.indices.get(j) * sign);
+        while(j<first.getCoefficients().size()){
+            result.getCoefficients().add(first.getCoefficients().get(j) * sign);
             j++;
         }
-        while (i<second.indices.size()){
-            result.indices.add(second.indices.get(j) * sign);
+        while (i<second.getCoefficients().size()){
+            result.getCoefficients().add(second.getCoefficients().get(j) * sign);
             i++;
         }
         String message = "";
         for( i=maxLength-1; i>=0; i--){
             message += "( ";
             boolean firstExists=false;
-            if(i<=first.indices.size()-1) {
-                message += first.indices.get(i) + " ";
+            if(i<=first.getCoefficients().size()-1) {
+                message += first.getCoefficients().get(i) + " ";
                 firstExists = true;
             }
-            if(i<=second.indices.size()-1){
+            if(i<=second.getCoefficients().size()-1){
                 if(firstExists){
-                    if(second.indices.get(i)>0)
+                    if(second.getCoefficients().get(i)>0)
                         message += "- ";
                     else
                         message += "+ " ;
-                    message += Math.abs(second.indices.get(i));
+                    message += Math.abs(second.getCoefficients().get(i));
                 } else
-                    message += second.indices.get(i);
+                    message += second.getCoefficients().get(i);
             }
             message += " )* " + x + "^" + i;
             if(i>0)
@@ -103,13 +103,13 @@ public class Calculator {
 
     public static Polynome polynomialMultiplication(Polynome first, Polynome second){
         Polynome result = new Polynome();
-        for(int i=0; i<first.indices.size()+second.indices.size()-1; i++)
-            result.indices.add(0.0);
-        for(int i=0; i<first.indices.size(); i++){
-            for(int j=0; j<second.indices.size(); j++) {
-                double temp = first.indices.get(i) * second.indices.get(j);
-                temp += result.indices.get(i+j);
-                result.indices.set(i + j, temp);
+        for(int i=0; i<first.getCoefficients().size()+second.getCoefficients().size()-1; i++)
+            result.getCoefficients().add(0.0);
+        for(int i=0; i<first.getCoefficients().size(); i++){
+            for(int j=0; j<second.getCoefficients().size(); j++) {
+                double temp = first.getCoefficients().get(i) * second.getCoefficients().get(j);
+                temp += result.getCoefficients().get(i+j);
+                result.getCoefficients().set(i + j, temp);
             }
         }
         return result;
@@ -117,16 +117,16 @@ public class Calculator {
 
     public static Polynome regularMultiplication(Polynome first, double multiplier){
         Polynome result = new Polynome();
-        for(int i=0; i<first.indices.size(); i++){
-            result.indices.add(first.indices.get(i)*multiplier);
+        for(int i=0; i<first.getCoefficients().size(); i++){
+            result.getCoefficients().add(first.getCoefficients().get(i)*multiplier);
         }
         return result;
     }
 
     public static Polynome regularDivision(Polynome first, double divider){
         Polynome result = new Polynome();
-        for(int i=0; i<first.indices.size(); i++){
-            result.indices.add(first.indices.get(i)/divider);
+        for(int i=0; i<first.getCoefficients().size(); i++){
+            result.getCoefficients().add(first.getCoefficients().get(i)/divider);
         }
         return result;
     }
@@ -134,32 +134,32 @@ public class Calculator {
     public static ArrayList<Polynome> polynomialDivision(Polynome first, Polynome second, double x){
         ArrayList<Polynome> result = new ArrayList<Polynome>();
         Polynome quotient = new Polynome();
-        for(int i=0; i<first.indices.size()-second.indices.size()+1; i++)
-            quotient.indices.add(0.0);
-        if(first.indices.size()<second.indices.size()){
+        for(int i=0; i<first.getCoefficients().size()-second.getCoefficients().size()+1; i++)
+            quotient.getCoefficients().add(0.0);
+        if(first.getCoefficients().size()<second.getCoefficients().size()){
             System.out.println("You cannot make this division.");
             return result;
         }
         Polynome firstReversed = new Polynome();
         Polynome secondReversed = new Polynome();
-        for (int i=first.indices.size()-1; i>=0; i--){
-            firstReversed.indices.add(first.indices.get(i));
+        for (int i=first.getCoefficients().size()-1; i>=0; i--){
+            firstReversed.getCoefficients().add(first.getCoefficients().get(i));
         }
-        for (int i=second.indices.size()-1; i>=0; i--){
-            secondReversed.indices.add(second.indices.get(i));
+        for (int i=second.getCoefficients().size()-1; i>=0; i--){
+            secondReversed.getCoefficients().add(second.getCoefficients().get(i));
         }
-        for(int i=0; i<first.indices.size()-second.indices.size()+1; i++){
+        for(int i=0; i<first.getCoefficients().size()-second.getCoefficients().size()+1; i++){
             Polynome temp ;
-            double factor = firstReversed.indices.get(0)/secondReversed.indices.get(0);
-            quotient.indices.set(quotient.indices.size()-i-1, factor);
+            double factor = firstReversed.getCoefficients().get(0)/secondReversed.getCoefficients().get(0);
+            quotient.getCoefficients().set(quotient.getCoefficients().size()-i-1, factor);
             temp = Calculator.regularMultiplication(secondReversed, factor);
             firstReversed = Calculator.subtract(firstReversed,temp, x);
-            firstReversed.indices.remove(0);
+            firstReversed.getCoefficients().remove(0);
         }
         result.add(quotient);
         Polynome auxilliary = new Polynome();
-        for (int i=firstReversed.indices.size()-1; i>=0; i--){
-            auxilliary.indices.add(firstReversed.indices.get(i));
+        for (int i=firstReversed.getCoefficients().size()-1; i>=0; i--){
+            auxilliary.getCoefficients().add(firstReversed.getCoefficients().get(i));
         }
         result.add(auxilliary);
         return result;
