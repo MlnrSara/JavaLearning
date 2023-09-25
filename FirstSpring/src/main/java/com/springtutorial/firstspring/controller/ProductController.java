@@ -26,11 +26,6 @@ public class ProductController {
         return productService.getProductId(id);
     }
 
-    //@GetMapping(value = "/product/filter")
-    //public ArrayList<Product> filterNameQuery(@RequestParam String name) throws SQLException{
-    //    return productService.getFilteredProducts(name);
-    //}
-
     @GetMapping(value = "/product/filter")
     public ArrayList<Product> filterQuery(@RequestParam Map< String,String > parameters) throws SQLException {
         return productService.getFilteredProducts(parameters);

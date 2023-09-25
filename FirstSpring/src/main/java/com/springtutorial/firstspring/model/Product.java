@@ -1,5 +1,6 @@
 package com.springtutorial.firstspring.model;
 
+import javax.persistence.Column;
 import java.sql.Timestamp;
 
 public class Product {
@@ -9,6 +10,7 @@ public class Product {
     private int quantity;
     private double price;
     //must add @
+    @Column(name = "deliveryAddress")
     private String address;
     private boolean availableOnline;
     private Timestamp lastRestock;

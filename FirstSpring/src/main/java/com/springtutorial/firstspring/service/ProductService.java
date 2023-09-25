@@ -31,18 +31,17 @@ public class ProductService {
     public ArrayList<Product> getFilteredProducts( Map<String, String> parameters ) throws SQLException {
         String message = "";
         Set<Map.Entry<String,String>> temp = parameters.entrySet();
-        Iterator<Map.Entry<String,String>> iterator = temp.iterator();
-        while(iterator.hasNext()){
-            String aux = iterator.next().toString();
+
+        for (Map.Entry<String, String> stringStringEntry : temp) {
+            String aux = stringStringEntry.toString();
             String[] parse = aux.split("=");
-            if(!ProductService.isNumeric(parse[1])){
+            if (!ProductService.isNumeric(parse[1])) {
                 message += parse[0] + " like '%" + parse[1] + "%'" + " AND ";
             } else {
                 message += aux + " AND ";
             }
         }
         message = message.substring(0, message.length()-5);
-        System.out.println(message);
         return productQuery.getQuery("select * from product where " + message);
     }
 }
