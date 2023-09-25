@@ -1,5 +1,3 @@
-import Model.*;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,13 +8,13 @@ public class main {
     public static void main(String[] args){
         ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
         Automobil automobil = new Automobil("blue", "Toyota", 2020, 1000, true, "CJ05GHK", 5);
-        Motorbike moto1 = new Motorbike("gray", "Yamaha", 1997, "B238FGC", 80, 1);
-        Vehicle avi1 = new Plane();
-        Bike bici1 = new Bike("red", "Pegasus", 2000, 1, 5);
+        Motorbike motorbike = new Motorbike("gray", "Yamaha", 1997, "B238FGC", 80, 1);
+        Vehicle vehicle = new Plane();
+        Bike bike = new Bike("red", "Pegasus", 2000, 1, 5);
         vehicles.add(automobil);
-        vehicles.add(moto1);
-        vehicles.add(avi1);
-        vehicles.add(bici1);
+        vehicles.add(motorbike);
+        vehicles.add(vehicle);
+        vehicles.add(bike);
 
         String outputPathCsvFile = "output.csv";
         try {
@@ -28,7 +26,7 @@ public class main {
             bufferedWriter.write(header);
             bufferedWriter.newLine(); // Move to the next line
                 for (int i = 0; i < vehicles.size(); i++) {
-                    bufferedWriter.write(vehicles.get(i).formating());
+                    bufferedWriter.write(vehicles.get(i).formatting());
                     bufferedWriter.newLine();
                 }
             } catch (Exception writingException){

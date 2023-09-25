@@ -2,14 +2,13 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
 
 public class Main {
+
+    static final String path = "C:\\Users\\sara.molnar\\OneDrive - ACCESA\\Documents\\input.csv";
     
-    public static ArrayList<Sale> validateLines() throws IOException { //chestia cu throws mi-o sugerat-o editorul, nu intreba
-        File inputFile = new File("C:\\Users\\sara.molnar\\OneDrive - ACCESA\\Documents\\input.csv");
+    public static ArrayList<Sale> validateLines() throws IOException {
+        File inputFile = new File(path);
         ArrayList<String> validInfo = new ArrayList<String>();
         BufferedReader reader = new BufferedReader(new FileReader(inputFile));
         String currentLine;
@@ -42,7 +41,7 @@ public class Main {
     }
 
     public static void addSaleInFile(String input) throws IOException {
-        FileWriter inputFile = new FileWriter("C:\\Users\\sara.molnar\\OneDrive - ACCESA\\Documents\\input.csv", true);
+        FileWriter inputFile = new FileWriter( path, true);
         BufferedWriter writer = new BufferedWriter(inputFile);
         PrintWriter fileWriter = new PrintWriter(writer);
         fileWriter.println(input);
@@ -55,10 +54,10 @@ public class Main {
         for(Sale sale: sales){
             System.out.println(sale);
         }
-        System.out.println("Number of sales : " + Operation.dailySales(LocalDate.of(2023, 9, 7),sales));
-        System.out.println("Number of sales today at 9: " + Operation.hourlySales(LocalDate.of(2023, 9, 7), LocalTime.of(9,0),sales));
-        System.out.println("Total income: " + Operation.totalIncome(sales));
-        System.out.println("Most popular: " + Operation.mostPopular(sales));
+        System.out.println("Number of sales : " + Operation.getDailySales(LocalDate.of(2023, 9, 7),sales));
+        System.out.println("Number of sales today at 9: " + Operation.getHourlySales(LocalDate.of(2023, 9, 7), LocalTime.of(9,0),sales));
+        System.out.println("Total income: " + Operation.getTotalIncome(sales));
+        System.out.println("Most popular: " + Operation.getMostPopularItem(sales));
         System.out.println("The IDs are different: " + Operation.checkUniqueID(sales));
         System.out.println("They are equal: " + sales.get(3).equals(sales.get(2)));
     }

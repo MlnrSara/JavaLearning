@@ -15,7 +15,8 @@ public class ControlPanel {
     private final static Logger logger = LogManager.getLogger("shop");
     public static void main(String[] args) throws SQLException, IOException, ParseException {
         JSONParser jsonParser = new JSONParser();
-        FileReader fileReader = new FileReader("C:\\Users\\sara.molnar\\OneDrive - ACCESA\\Documents\\credentials.json");
+        final String path = "C:\Users\sara.molnar\OneDrive - ACCESA\Documents\credentials.json";
+        FileReader fileReader = new FileReader(path);
         Object object = jsonParser.parse(fileReader);
         JSONObject jsonObject = (JSONObject) object;
         String url = (String) jsonObject.get("url");
@@ -30,8 +31,8 @@ public class ControlPanel {
             logger.info("Connected");
             System.out.println("Connected");
             Statement statement = connection.createStatement();
-            NameQuery.filterNames(connection);
-            AgeQuery.over40(connection);
+            EmployeeNameQuery.filterNames(connection);
+            EmployeeAgeQuery.over40(connection);
             PurchasedProductsQuery.showPurchasedItems(connection);
             Manipulator.insert(connection, "sale", "employee_id, purchase_date, store_id, product_id, purchase_quantity, order_id", "3, '2023-09-12 12:00:00', 3, 1, 2, 1");
             Manipulator.update(connection, "product", "quantity", "6", "product_id = 6" );

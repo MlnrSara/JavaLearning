@@ -21,7 +21,7 @@ public class Vehicle {
         this.numberSeats = seats;
     }
 
-    public String formating(){
+    public String formatting(){
         String[] temp = {brand, String.valueOf(constructionYear), color, String.valueOf(numberSeats)};
         String dataLine = String.join(",", temp);
         return dataLine;
@@ -50,7 +50,7 @@ public class Vehicle {
             bufferedWriter.write(header);
             bufferedWriter.newLine(); // Move to the next line
             for(Vehicle v : vehicles) {
-                bufferedWriter.write(v.formating());
+                bufferedWriter.write(v.formatting());
                 bufferedWriter.newLine();
             }
 

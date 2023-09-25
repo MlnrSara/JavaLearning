@@ -1,24 +1,22 @@
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 public class Operation {
 
-    public static long dailySales(LocalDate date, ArrayList<Sale> sales){
+    public static long getDailySales(LocalDate date, ArrayList<Sale> sales){
         return sales.stream().filter(s-> s.getDate().isEqual(date)).count();
     }
 
 
-    public static long hourlySales(LocalDate date, LocalTime time, ArrayList<Sale> sales){
+    public static long getHourlySales(LocalDate date, LocalTime time, ArrayList<Sale> sales){
         return sales.stream().filter(s->s.getDate().isEqual(date) && s.getTime().getHour() == time.getHour()).count();
     }
 
-    public static double totalIncome(ArrayList<Sale> sales){
+    public static double getTotalIncome(ArrayList<Sale> sales){
         List<Double> mappedSales = sales.stream().map(s->s.getPrice()*s.getQuantity()).collect(Collectors.toList());
         List<Double> temp = mappedSales.stream().filter(s->s<0).collect(Collectors.toList());
         try{
@@ -30,7 +28,7 @@ public class Operation {
         return mappedSales.stream().reduce(0.0,Double::sum);
     }
 
-    public static String mostPopular(ArrayList<Sale> sales){
+    public static String getMostPopularItem(ArrayList<Sale> sales){
         List<String> mappedSales = sales.stream().map(s->s.getItemName()).collect(Collectors.toList());
         mappedSales = mappedSales.stream().sorted().collect(Collectors.toList());
         int count = 1;
@@ -55,7 +53,7 @@ public class Operation {
         List<Integer> distinctElements = intermediate.stream().distinct().collect(Collectors.toList());
         return sales.size() == distinctElements.size();
     }
-    public static boolean obsLength(Sale sale){
+    public static boolean checkObsLength(Sale sale){
         return sale.getObs().length() <= 255;
     }
 

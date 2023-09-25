@@ -10,6 +10,39 @@ public class Calculator {
         }
         return result;
     }
+
+    private static void printMessage (int maxLength, Polynome first, Polynome second, Polynome result, double x, boolean operation){
+        String message = "";
+        for(int  i = maxLength-1; i >= 0; i--){
+            message += "( ";
+            boolean firstExists = false;
+            if(i<=first.getCoefficients().size()-1) {
+                message += first.getCoefficients().get(i) + " ";
+                firstExists = true;
+            }
+            if(i<=second.getCoefficients().size()-1){
+                if(firstExists){
+                    if(second.getCoefficients().get(i)>0)
+                        if(!operation)
+                            message += "+ ";
+                        else
+                            message += "- ";
+                    else
+                        if(!operation)
+                            message += "- ";
+                        else
+                            message += "+ ";
+                    message += Math.abs(second.getCoefficients().get(i));
+                } else
+                    message += second.getCoefficients().get(i);
+            }
+            message += " )* " + x + "^" + i;
+            if(i>0)
+                message += " + ";
+        }
+        message += " = " + result.toString(x) + "\n";
+        System.out.print(message);
+    }
     public static Polynome add(Polynome first, Polynome second, double x){
         int minLength = Math.min(first.getCoefficients().size(), second.getCoefficients().size());
         int maxLength = Math.max(first.getCoefficients().size(), second.getCoefficients().size());
@@ -24,33 +57,10 @@ public class Calculator {
             j++;
         }
         while (i<second.getCoefficients().size()){
-            result.getCoefficients().add(second.getCoefficients().get(j));
+            result.getCoefficients().add(second.getCoefficients().get(i));
             i++;
         }
-        String message = "";
-        for( i=maxLength-1; i>=0; i--){
-            message += "( ";
-            boolean firstExists=false;
-            if(i<=first.getCoefficients().size()-1) {
-                message += first.getCoefficients().get(i) + " ";
-                firstExists = true;
-            }
-            if(i<=second.getCoefficients().size()-1){
-                if(firstExists){
-                    if(second.getCoefficients().get(i)>0)
-                        message += "+ ";
-                    else
-                        message += " ";
-                    message += second.getCoefficients().get(i);
-                } else
-                    message += second.getCoefficients().get(i);
-            }
-            message += " )* " + x + "^" + i;
-            if(i>0)
-                message += " + ";
-        }
-        message += " = " + result.toString(x) + "\n";
-        System.out.print(message);
+        Calculator.printMessage(maxLength, first, second, result, x, 0);
         return result;
     }
 
@@ -74,30 +84,7 @@ public class Calculator {
             result.getCoefficients().add(second.getCoefficients().get(j) * sign);
             i++;
         }
-        String message = "";
-        for( i=maxLength-1; i>=0; i--){
-            message += "( ";
-            boolean firstExists=false;
-            if(i<=first.getCoefficients().size()-1) {
-                message += first.getCoefficients().get(i) + " ";
-                firstExists = true;
-            }
-            if(i<=second.getCoefficients().size()-1){
-                if(firstExists){
-                    if(second.getCoefficients().get(i)>0)
-                        message += "- ";
-                    else
-                        message += "+ " ;
-                    message += Math.abs(second.getCoefficients().get(i));
-                } else
-                    message += second.getCoefficients().get(i);
-            }
-            message += " )* " + x + "^" + i;
-            if(i>0)
-                message += " + ";
-        }
-        message += " = " + result.toString(x) + "\n";
-        System.out.print(message);
+        Calculator.printMessage(maxLength, first, second, result, x, 1);
         return  result;
     }
 
@@ -163,7 +150,6 @@ public class Calculator {
         }
         result.add(auxilliary);
         return result;
-        //return quotient;
     }
 
 
