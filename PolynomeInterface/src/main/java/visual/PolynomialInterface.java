@@ -30,33 +30,33 @@ public class PolynomialInterface {
     public static void main(String[] args) {
         MyFrame frame = new MyFrame();
 
-        JPanel firstPanel = new JPanel();
-        JPanel secondPanel = new JPanel();
+        JPanel firstPanel = new JPanel(new GridLayout(2,2));
+        JPanel secondPanel = new JPanel(new GridLayout(2,2));
         JPanel xPanel = new JPanel();
         JPanel factorPanel = new JPanel();
 
-        firstPanel.setBounds(0, 0, 750, 75);
+        firstPanel.setBounds(0, 0, 800, 75);
         firstPanel.setBackground(new Color(0x71aeeb));
 
-        secondPanel.setBounds(0, 75, 750, 75);
+        secondPanel.setBounds(0, 75, 800, 75);
         secondPanel.setBackground(new Color (0x71aeeb));
 
-        xPanel.setBounds(0,150, 750, 75);
+        xPanel.setBounds(0,150, 800, 75);
         xPanel.setBackground(new Color(0x71aeeb));
 
         factorPanel.setBounds(0, 320, 400,100);
         factorPanel.setBackground(new Color(0x123456));
 
-        JLabel firstPolynomialCoefficientsLabel = new JLabel("Please give us the coefficients for the first polynomial separated by a space: ");
+        JLabel firstPolynomialCoefficientsLabel = new JLabel("Give us the coefficients separated by a space: ");
         firstPolynomialCoefficientsLabel.setVisible(true);
 
-        JLabel secondPolynomialCoefficientsLabel = new JLabel("Please give us the coefficients for the second polynomial separated by a space: ");
+        JLabel secondPolynomialCoefficientsLabel = new JLabel("Give us the coefficients separated by a space: ");
         secondPolynomialCoefficientsLabel.setVisible(true);
 
-        JLabel firstPolynomialPowersLabel = new JLabel("Please give us the powers of X separated by a space: ");
+        JLabel firstPolynomialPowersLabel = new JLabel("Give us the powers of X separated by a space: ");
         firstPolynomialPowersLabel.setVisible(true);
 
-        JLabel secondPolynomialPowersLabel = new JLabel("Please give us the powers of X separated by a space: ");
+        JLabel secondPolynomialPowersLabel = new JLabel("Give us the powers of X separated by a space: ");
         secondPolynomialPowersLabel.setVisible(true);
 
         JLabel xLabel = new JLabel("Provide the x for the polynomials: ");
@@ -87,7 +87,8 @@ public class PolynomialInterface {
         factorField.setVisible(false);
 
         Button confirmationButton = new Button("Confirm");
-        confirmationButton.setBounds(525,350, 75,25);
+        confirmationButton.setBounds(510,350, 75,25);
+        confirmationButton.setBackground(new Color(0x71aeeb));
 
         frame.add(firstPanel);
         frame.add(secondPanel);
@@ -127,15 +128,16 @@ public class PolynomialInterface {
         evaluationLabel.setOpaque(true);
         evaluationLabel.setBackground(new Color(0x79bafc));
 
-        final JLabel factorLabel = new JLabel("Please provide a factor with which to perform the operation: ");
+        final JLabel factorLabel = new JLabel("Provide a factor with which to perform the operation: ");
         factorLabel.setVisible(false);
         factorLabel.setBackground(new Color(0x79bafc));
         factorLabel.setOpaque(true);
 
 
         JPanel resultPanel = new JPanel();
-        resultPanel.setBounds(0, 225, 750, 75);
+        resultPanel.setBounds(0, 225, 800, 75);
         resultPanel.setBackground(new Color(0x123456));
+        resultPanel.setLayout(new GridLayout(4,1));
         frame.add(resultPanel);
 
         resultPanel.add(secondResult);
@@ -145,22 +147,28 @@ public class PolynomialInterface {
 
         frame.setVisible(true);
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setBounds(600, 320, 100,200);
+        JPanel buttonPanel = new JPanel(new GridLayout(6,1));
+        buttonPanel.setBounds(600, 320, 110,200);
         buttonPanel.setBackground(new Color(0x123456));
 
         Button additionButton = new Button("Add");
         additionButton.setSize(75, 25);
+        additionButton.setBackground(new Color(0x63b1ff));
         Button subtractionButton = new Button ("Subtract");
         subtractionButton.setSize(75, 25);
+        subtractionButton.setBackground(new Color(0x5ca5ed));
         Button normalDivisionButton = new Button("Divide by");
         normalDivisionButton.setSize(75, 25);
+        normalDivisionButton.setBackground(new Color(0x5699db));
         Button polynomialDivisionButton = new Button("Divide polynomial");
         polynomialDivisionButton.setSize(75, 25);
+        polynomialDivisionButton.setBackground(new Color(0x508ecc));
         Button normalMultiplication = new Button("Multiply by");
         normalMultiplication.setSize(75, 25);
+        normalMultiplication.setBackground(new Color(0x3f7dba));
         Button polynomialMultiplication = new Button("Multiply polynomial");
         polynomialMultiplication.setSize(75,25);
+        polynomialMultiplication.setBackground(new Color(0x3971a8));
 
         Button factorbutton = new Button("Confirm");
         factorbutton.setVisible(false);
